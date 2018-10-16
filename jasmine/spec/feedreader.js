@@ -69,9 +69,9 @@ $(function() {
       it('Menu Changes visibility when icon is clicked', function () {
         let menu = document.getElementsByClassName('menu-icon-link')[0];
         menu.click();
-        expect(document.body.classList[0]).not.toBeDefined();
+        expect(document.body.classList).not.toContain('menu-hidden');
         menu.click();
-        expect(document.body.classList[0]).toBe('menu-hidden');
+        expect(document.body.classList).toContain('menu-hidden');
       });
     });
 
