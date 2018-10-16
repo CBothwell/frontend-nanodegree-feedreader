@@ -57,8 +57,8 @@ $(function() {
        * the CSS to determine how we're performing the
        * hiding/showing of the menu element.
        */
-      it('Has a hidden menu by default', function () { 
-        expect(document.body.classList[0]).toBe('menu-hidden'); 
+      it('Has a hidden menu by default', function () {
+        expect(document.body.classList).toContain('menu-hidden');
       });
 
       /* Write a test that ensures the menu changes
@@ -67,16 +67,16 @@ $(function() {
        * clicked and does it hide when clicked again.
        */
       it('Menu Changes visibility when icon is clicked', function () {
-        let menu = document.getElementsByClassName('menu-icon-link')[0]; 
+        let menu = document.getElementsByClassName('menu-icon-link')[0];
         menu.click();
-        expect(document.body.classList[0]).not.toBeDefined(); 
+        expect(document.body.classList[0]).not.toBeDefined();
         menu.click();
-        expect(document.body.classList[0]).toBe('menu-hidden'); 
+        expect(document.body.classList[0]).toBe('menu-hidden');
       });
     });
 
     /* Write a new test suite named "Initial Entries" */
-    describe('Initial Entries', function () { 
+    describe('Initial Entries', function () {
 
         /* Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
@@ -84,13 +84,13 @@ $(function() {
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
-        beforeEach(function (done) { 
-          loadFeed(0, function () {  done(); });           
-        }, 1000 );
+        beforeEach(function (done) {
+          loadFeed(0, done);
+        });
 
-        it('There is at least a single entry when the feed is loaded', function (done) { 
-          expect(document.querySelector('.feed .entry')).not.toBeNull(); 
-          done(); 
+        it('There is at least a single entry when the feed is loaded', function (done) {
+          expect(document.querySelectorAll('.feed .entry').length).toBeGreaterThan(0);
+          done();
         });
     });
 
@@ -107,9 +107,9 @@ $(function() {
         // from a different page prior to testing it.
         // that is we need two async calls
         let textContent;
-        beforeEach(function (done) { 
-          loadFeed(1, function () { 
-            done(); 
+        beforeEach(function (done) {
+          loadFeed(1, function () {
+            done();
             textContent = document.querySelector('.feed .entry').textContent;
             console.log(textContent);
           });
@@ -122,7 +122,6 @@ $(function() {
         it('When loadFeed executes content is changed', function(done) {
           expect(document.querySelector('.feed .entry').textContent)
             .not.toBe(textContent);
-          done();
         });
     });
 }());
